@@ -1,4 +1,4 @@
-﻿const Assets = {
+﻿const Assets: { [key: string]: number } = {
     black_king: require('./Black_King.png').default,
     black_queen: require('./Black_Queen.png').default,
     black_rook: require('./Black_Rook.png').default,
