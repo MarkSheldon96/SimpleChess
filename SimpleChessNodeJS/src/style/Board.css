@@ -1,0 +1,19 @@
+.row {
+    display: block;
+    width: fit-content;
+    height: fit-content;
+}
+
+.green_chess_square {
+    width: 60px;
+    height: 60px;
+    background-color: #00FF00;
+    display: inline-block;
+}
+
+.gray_chess_square {
+    width: 60px;
+    height: 60px;
+    background-color: #D3D3D3;
+    display: inline-block;
+}

@@ -2,31 +2,28 @@ import Assets from '../res/Index';
 
 var React = require('react');
 
-var _color: string;
-var _type: string;
-
-export class Chess_Piece {
-
+export class Chess_Piece extends React.Component {
+    _color: string;
+    _type: string;
 
     constructor(color: string, type: string) {
-        _color = color;
-        _type = type;
+        super();
+        this._color = color;
+        this._type = type;
     }
 
-    getImageName():string {
-        return (
-            _color + '_' + _type
-        )
+    private getImageName():string {
+        let imageName: string = this._color + '_' + this._type;
+        return imageName;
     }
 
-    getAltText():string {
-        return (
-            _color + ' ' + _type
-        )
+    private getAltText(): string {
+        let altText: string = this._color + ' ' + this._type;
+        return altText;
     }
 
     render(): HTMLImageElement {
-        let imageName: string = this.getImageName()
+        let imageName: string = this.getImageName();
         let altText: string = this.getAltText();
         return (
             <img src={Assets[imageName]} alt={altText} />
