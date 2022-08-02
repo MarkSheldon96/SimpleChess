@@ -2,34 +2,21 @@ import Assets from '../res/Index';
 
 var React = require('react');
 
-export class Chess_Piece extends React.Component {
+export abstract class Chess_Piece extends React.Component {
     private color: string;
-    private type: string;
     private selected: boolean;
 
-    constructor(_color: string, _type: string) {
+    abstract getImageName(): string;
+    abstract getAltText(): string;
+
+    constructor(_color: string) {
         super();
         this.color = _color;
-        this.type = _type;
         this.selected = false;
-    }
-
-    private getImageName(): string {
-        let imageName: string = this._color + '_' + this._type;
-        return imageName;
-    }
-
-    private getAltText(): string {
-        let altText: string = this._color + ' ' + this._type;
-        return altText;
     }
 
     getColor(): string {
         return this.color;
-    }
-
-    getType(): string {
-        return this.type;
     }
 
     isSelected(): boolean {
@@ -41,7 +28,7 @@ export class Chess_Piece extends React.Component {
     }
 
     handleClick = () => {
-        console.log('this is a ' + this._type);
+        console.log('this is a ' + this.type);
     }
 
     render(): HTMLImageElement {

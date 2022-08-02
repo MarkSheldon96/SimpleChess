@@ -1,13 +1,20 @@
 import * as React from 'react';
 import { Chess_Piece } from "./ChessPiece";
-const styles = require('../style/Board.css');
+import { Rook } from "./Rook";
+import { Knight } from "./Knight";
+import { Bishop } from "./Bishop";
+import { Queen } from "./Queen";
+import { King } from "./King";
+import { Pawn } from "./Pawn";
 
+const styles = require('../style/Board.css');
+const setupOrder = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook];
 
 export class Chess_Board {
     private board: Board_Square[][];
 
     // Skill piece setup order for the beginning of the game
-    private setup_order = ["rook", "knight", "bishop", "queen", "king", "bishop", "knight", "rook"];
+
 
     boardWidth: number;
     boardHeight: number;
@@ -18,25 +25,25 @@ export class Chess_Board {
         this.boardHeight = 8;
 
         this.board = [];
-        for (let row: number = 0; row < this.boardWidth; row++) {
-            this.board[row] = [];
-            for (let column: number = 0; column < this.boardHeight; column++) {
-                let square_color:string = (((row + column + 2) % 2) == 1) ? "green" : "gray"
+        for (let column: number = 0; column < this.boardWidth; column++) {
+            this.board[column] = [];
+            for (let row: number = 0; row < this.boardHeight; row++) {
+                let squareColor: string = (((column + row) % 2) == 1) ? "green" : "gray";
 
-                if (row == 0) {
-                    this.board[row][column] = new Board_Square(square_color, new Chess_Piece("white", this.setup_order[column]), [row, column]);
+                if (column == 0) {
+                    this.board[column][row] = new Board_Square(squareColor, new setupOrder[row]("white"), [row, column]);
                 }
-                else if (row == 1) {
-                    this.board[row][column] = new Board_Square(square_color, new Chess_Piece("white", "pawn"), [row, column]);
+                else if (column == 1) {
+                    this.board[column][row] = new Board_Square(squareColor, new Pawn("white"), [row, column]);
                 }
-                else if (row == 6) {
-                    this.board[row][column] = new Board_Square(square_color, new Chess_Piece("black", "pawn"), [row, column]);
+                else if (column == 6) {
+                    this.board[column][row] = new Board_Square(squareColor, new Pawn("black"), [row, column]);
                 }
-                else if (row == 7) {
-                    this.board[row][column] = new Board_Square(square_color, new Chess_Piece("black", this.setup_order[column]), [row, column]);
+                else if (column == 7) {
+                    this.board[column][row] = new Board_Square(squareColor, new setupOrder[row]("black"), [row, column]);
                 }
                 else {
-                    this.board[row][column] = new Board_Square(square_color, null, [row, column]);
+                    this.board[column][row] = new Board_Square(squareColor, null, [row, column]);
                 }
             }
         }
@@ -99,7 +106,6 @@ export class Chess_Board {
         return <div>{elements}</div>
     }
 }
-
 
 export class Board_Square {
     private squareColor: string;
